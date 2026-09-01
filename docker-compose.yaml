@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  pyspark-notebook:
+    image: jupyter/pyspark-notebook:python-3.10
+    container_name: pyspark-notebook
+    ports:
+      - "8888:8888"
+      - "4041:4040"
+    volumes:
+      - ./data:/home/jovyan/data
+      - ./notebooks:/home/jovyan/work
+      - ./src:/home/jovyan/src
+      - ./tests:/home/jovyan/tests
+    restart: always
+
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: zawl
+      POSTGRES_DB: tradecorp
+    ports:
+      - "5431:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  pgadmin:
+    image: dpage/pgadmin4:8.4
+    container_name: pgadmin
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: redietesfabirhan@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: zawl
+    restart: always
+
+volumes:
+  pgdata:
