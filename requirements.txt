@@ -1,0 +1,4 @@
+pandas
+numpy
+typing_extensions>=4.7
+pyarrow
